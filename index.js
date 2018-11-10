@@ -1,37 +1,43 @@
-document.addEventListener('DOMContentLoaded', function() {
-  function renderMovies(movieData) {
-    let renameThis = ''
-    for (i = 0; i < movieData.length; i++) {
-      renameThis += `
-	<div class="movie"><img class="poster" src="${movieData[i].Poster}"/>
-	<h1>${movieData[i].Title}</h1>
-    <span class="date">${movieData[i].Year}</span>
-    <br>
-    <button type="button" onclick="function saveToWatchlist(${movieData.imbdID}) {}">Add to Favorites</button>
-	</div>`
-    } return renameThis
-  } console.log(renderMovies(movieData))
+document.addEventListener('DOMContentLoaded', function () {
 
-  function saveToWatchlist(imdbID) {
-    var movie = movieData.find(function (currentMovie) {
+  function createSingleMovie (movie) {
+    return `<div class="movie"><img class="poster" src="${movie.Poster}"/>
+      <h1>${movie.Title}</h1>
+      <span class="date">${movie.Year}</span>
+      <br>
+      <button type="button" onclick="function saveToWatchlist(${movie.imdbID}) {}">Add Movie</button>
+    </div>`
+  }
+  
+  // what is the return value of this function?
+  function renderMovies (movieData) {
+    const moviesHTMLArray = movieData.map(createSingleMovie)
+    const moviesHTML = moviesHTMLArray.join('')
+
+    // let moviesHTML = movieData.map(createSingleMovie).join('')
+
+    // TODO: return something here?
+    return moviesHTML
+  }
+
+  function saveToWatchList (imdbID) {
+    let movie = movieData.find(function (currentMovie){
       return currentMovie.imdbID == imdbID
     })
     var watchlistJSON = localStorage.getItem('watchlist')
     var watchlist = JSON.parse(watchlistJSON)
-    if (watchlist === null) {
-      watchlist = []
+    if(watchlist = null) {
+      return watchlist = []
     }
     watchlist.push(movie)
-    watchlistJSON = JSON.stringify(watchlist)
+    watchlistJSON.stringify(watchlist)
     localStorage.setItem('watchlist', watchlistJSON)
-
-  } 
+  }
 
   let content = document.querySelector('.movies-container')
 
-  document.getElementById('search-form').addEventListener('submit', function(e) {
+  document.getElementById('search-form').addEventListener('submit', function (e) {
     e.preventDefault()
     content.innerHTML = renderMovies(movieData)
   })
-
 })
