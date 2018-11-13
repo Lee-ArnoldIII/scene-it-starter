@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', function () {
       <h1>${movie.Title}</h1>
       <span class="date">${movie.Year}</span>
       <br>
-      <button type="button" onclick="function saveToWatchlist(${movie.imdbID}) {}">Add Movie</button>
+      <button type="button" onclick="function saveToWatchlist(${movie.imdbID})">Add Movie</button>
     </div>`
   }
   
@@ -21,12 +21,12 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   function saveToWatchList (imdbID) {
-    let movie = movieData.find(function (currentMovie){
+    let movie = movieData.find(function (currentMovie) {
       return currentMovie.imdbID == imdbID
     })
     var watchlistJSON = localStorage.getItem('watchlist')
     var watchlist = JSON.parse(watchlistJSON)
-    if(watchlist = null) {
+    if (watchlist = null) {
       return watchlist = []
     }
     watchlist.push(movie)
